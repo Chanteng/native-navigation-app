@@ -1,97 +1,64 @@
-import { Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { FlatList, Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View,} from "react-native";
 import React from "react";
 import Icon from "react-native-vector-icons/MaterialIcons";
+import Files from "../conponent/Files";
 
 
 
-const Home = (props) => {
 
+const Home = ({ navigation }) => {
+  const Card = ({ file }) => {
+    return (
+    <TouchableOpacity onPress={() => navigation.navigate("Details", file)}>
+        <View style={styles.card}>
+
+<View style={{paddingHorizontal: 20}}>
+<View style={{backgroundColor: "blue", height: 8, width: 100, position: "absolute"}}></View>
+<View style={{backgroundColor: "blue", height: 100, width: 8, position: "absolute"}}></View>
+
+</View>
+
+
+<View style={{flexDirection: "row" }}>
+  <Image style={{ height: 100, width: 100, marginTop: 12, marginLeft: 15}} source={file.img} />
+<View style={{flexDirection: "column"}}>
+ <Text style={{margin: 15, fontSize: 30, fontWeight: "bold"}}>{file.name}</Text>
+ <View style={styles.footer} >
+<Image style={styles.footerimg} source={require("../assets/8.jpg")} />
+<Text style={{fontSize: 20, marginLeft: 5}}>Mr. Oduro</Text>
+<Text style={{fontSize: 20, marginLeft: 15}}>4 min</Text>
+</View>
+</View>
+
+</View>
+</View>
+    </TouchableOpacity>
+    );
+  };
 
   return (
-     
     <View style={styles.container}>
-         
       <View style={styles.header}>
         <Icon name="apps" size={30} />
         <Text style={{ fontSize: 30 }}>Discover</Text>
         <Icon name="search" size={30} />
       </View>
-      <SafeAreaView>
 
-      <View style={styles.info}>
-        <View style={styles.box}>
-          <Image style={styles.tinyLogo} source={require("../assets/1.jpg")} />
-        <View style={styles.text} >
-        <Text style={styles.txt}>Does Dry is January</Text>
-        <Text style={styles.infotxt}>Healthy?</Text>
-        </View>
-        <View style={styles.footer} >
-        <Image style={styles.footerimg} source={require("../assets/8.jpg")} />
-       <Text style={{fontSize: 25, marginLeft: 30}}>Mr. Oduro</Text>
-       <Text style={{fontSize: 20, marginLeft: 15}}>4 min read</Text>
-        </View>
-        
-        <View style={{backgroundColor: "pink", height: 10, width: 100, position: "absolute"}}></View>
-        <View style={{backgroundColor: "pink", height: 100, width: 10, position: "absolute"}}></View>
-        </View>
 
-        <View style={styles.box}>
-          <Image style={styles.tinyLogo} source={require("../assets/1.jpg")} />
-        <View style={styles.text} >
-        <Text style={styles.txt}>Does Dry is January</Text>
-        <Text style={styles.infotxt}>Healthy?</Text>
-        </View>
-        <View style={styles.footer} >
-        <Image style={styles.footerimg} source={require("../assets/8.jpg")} />
-       <Text style={{fontSize: 25, marginLeft: 30}}>Mr. Oduro</Text>
-       <Text style={{fontSize: 20, marginLeft: 15}}>4 min read</Text>
-        </View>
-        
-        <View style={{backgroundColor: "pink", height: 10, width: 100, position: "absolute"}}></View>
-        <View style={{backgroundColor: "pink", height: 100, width: 10, position: "absolute"}}></View>
-        </View>
+<View>
+      <FlatList
+        contentContainerStyle={{ marginTop: 20, paddingBottom: 10 }}
+        data={Files}
+        renderItem={({ item }) => {
+          return <Card file={item} />;
+        }}
+      />
 
-        <View style={styles.box}>
-          <Image style={styles.tinyLogo} source={require("../assets/1.jpg")} />
-        <View style={styles.text} >
-        <Text style={styles.txt}>Does Dry is January</Text>
-        <Text style={styles.infotxt}>Healthy?</Text>
-        </View>
-        <View style={styles.footer} >
-        <Image style={styles.footerimg} source={require("../assets/8.jpg")} />
-       <Text style={{fontSize: 25, marginLeft: 30}}>Mr. Oduro</Text>
-       <Text style={{fontSize: 20, marginLeft: 15}}>4 min read</Text>
-        </View>
-        
-        <View style={{backgroundColor: "pink", height: 10, width: 100, position: "absolute"}}></View>
-        <View style={{backgroundColor: "pink", height: 100, width: 10, position: "absolute"}}></View>
-        </View>
-
-        <View style={styles.box}>
-          <Image style={styles.tinyLogo} source={require("../assets/1.jpg")} />
-        <View style={styles.text} >
-        <Text style={styles.txt}>Does Dry is January</Text>
-        <Text style={styles.infotxt}>Healthy?</Text>
-        </View>
-        <View style={styles.footer} >
-        <Image style={styles.footerimg} source={require("../assets/8.jpg")} />
-       <Text style={{fontSize: 25, marginLeft: 30}}>Mr. Oduro</Text>
-       <Text style={{fontSize: 20, marginLeft: 15}}>4 min read</Text>
-        </View>
-        
-        <View style={{backgroundColor: "pink", height: 10, width: 100, position: "absolute"}}></View>
-        <View style={{backgroundColor: "pink", height: 100, width: 10, position: "absolute"}}></View>
-        </View>
-      </View>
-   
-      </SafeAreaView>
-    
-      
+</View>
     </View>
-   
-  );
 
-  
+    
+  );
 };
 
 const styles = StyleSheet.create({
@@ -99,12 +66,20 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 
+  card: {
+    height: 120,
+    paddingHorizontal: 20,
+    flexDirection: "column",
+    marginTop: 10,
+  },
+
   header: {
-    flex: 0.1,
+    flex: 0.5,
     flexDirection: "row",
     justifyContent: "space-between",
     paddingHorizontal: 20,
     marginTop: 10,
+    marginBottom: 10,
     alignItems: "center",
   },
 
@@ -117,48 +92,47 @@ const styles = StyleSheet.create({
 
   box: {
     backgroundColor: "white",
-    height: 150,
-    marginTop: 20,
+    height: 130,
+    marginTop: 10,
     flexDirection: "row",
-    resizeMode: 'contain'
+    resizeMode: "contain",
   },
 
   tinyLogo: {
-    height: 120,
+    height: 100,
     width: 100,
     margin: 15,
   },
 
   text: {
-      flexDirection: "column"
+    flexDirection: "column",
   },
 
   txt: {
-     resizeMode: 'contain',
-     fontSize: 20,
-     marginTop: 15,
-     marginLeft: 15
+    fontSize: 20,
+    marginTop: 15,
+    marginLeft: 15,
   },
 
   infotxt: {
-      fontSize: 35,
-      marginLeft: 15,
+    fontSize: 35,
+    marginLeft: 15,
   },
 
-footer: {
+  footer: {
     flexDirection: "row",
     position: "absolute",
-    top: 90,
-    alignItems: "center"
-},
+    top: 65,
+    alignItems: "center",
+  },
 
   footerimg: {
-      height: 40,
-      width: 40,
-      borderRadius: 50,
-      marginLeft: 140,
-      marginTop: 10
-  }
+    height: 35,
+    width: 35,
+    borderRadius: 50,
+    marginLeft: 10,
+    marginTop: 1,
+  },
 });
 
 export default Home;
